@@ -977,3 +977,57 @@ hr {
 .gh-copyright {
     font-size: 1.4rem;
 }
+
+/* Deck template
+/* ---------------------------------------------------------- */
+
+.deck-template .gh-content {
+    counter-reset: slide;
+}
+
+/* Each full-width image is a slide */
+.deck-template .gh-content .kg-image-card.kg-width-full {
+    counter-increment: slide;
+    margin-top: clamp(6rem, 5vw + 2rem, 10rem);
+    margin-bottom: 0;
+}
+
+/* Slide number above each image */
+.deck-template .gh-content .kg-image-card.kg-width-full::before {
+    content: counter(slide, decimal-leading-zero);
+    display: block;
+    padding: 0 clamp(1.6rem, 1.5vw + 0.8rem, 3.2rem);
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-secondary-text);
+    text-transform: uppercase;
+}
+
+/* Slide image: rounded corners + subtle shadow */
+.deck-template .gh-content .kg-image-card.kg-width-full img {
+    border-radius: 8px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Prose after a slide: give it breathing room and constrain width */
+.deck-template .gh-content .kg-image-card.kg-width-full + p,
+.deck-template .gh-content .kg-image-card.kg-width-full + ul,
+.deck-template .gh-content .kg-image-card.kg-width-full + ol,
+.deck-template .gh-content .kg-image-card.kg-width-full + h2,
+.deck-template .gh-content .kg-image-card.kg-width-full + h3,
+.deck-template .gh-content .kg-image-card.kg-width-full + blockquote {
+    margin-top: clamp(3.2rem, 2.5vw + 1.5rem, 5.6rem);
+}
+
+/* Hide the feature image area — deck posts lead with the first slide */
+.deck-template .gh-article-image {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .deck-template .gh-content .kg-image-card.kg-width-full img {
+        border-radius: 4px;
+    }
+}
