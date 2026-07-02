@@ -1,69 +1,48 @@
 {{!< default}}
 
-<main class="gh-main gh-outer">
-    <div class="gh-inner">
-        {{#post}}
-            <article class="gh-article deck-template {{post_class}}">
-                <header class="gh-article-header gh-canvas">
-                    <h1 class="gh-article-title">{{title}}</h1>
-                    {{#if custom_excerpt}}
-                        <p class="gh-article-excerpt">{{custom_excerpt}}</p>
-                    {{/if}}
-                </header>
+{{#contentFor "body_class"}} is-deck{{/contentFor}}
 
-                <section class="gh-content gh-canvas">
-                    {{content}}
-                    <aside class="gh-article-meta">
-                        <div class="gh-article-meta-inner">
-                            <div class="gh-author-image-list instapaper_ignore">
-                                {{#foreach authors}}
-                                    <a class="gh-author-image" href="{{url}}">
-                                        {{#if profile_image}}
-                                            <img src="{{profile_image}}" alt="{{name}}">
-                                        {{else}}
-                                            <div class="gh-author-icon">{{> icons/avatar}}</div>
-                                        {{/if}}
-                                    </a>
-                                {{/foreach}}
-                            </div>
-                            <div class="gh-article-meta-wrapper">
-                                <div class="gh-author-name-list">
-                                    {{authors}}
-                                </div>
-                                <time class="gh-article-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
-                            </div>
-                            {{#foreach tags}}
-                                <a class="gh-article-tag" href="{{url}}" style="--tag-color: {{accent_color}}">{{name}}</a>
-                            {{/foreach}}
-                        </div>
-                    </aside>
-                </section>
+{{#post}}
+<div class="deck-ui">
 
-                {{#if comments}}
-                    <div class="gh-comments gh-canvas">
-                        <h2 class="gh-comments-title">{{comment_count empty="" singular=(t "comment") plural=(t "comments")}}</h2>
-                        {{comments title="" count=false}}
-                    </div>
-                {{/if}}
+    {{! Hidden source — JS parses this to build slides }}
+    <div class="deck-content-source" aria-hidden="true">{{content}}</div>
 
-                <footer class="gh-article-footer gh-canvas">
-                    <nav class="gh-navigation">
-                        <div class="gh-navigation-previous">
-                            {{#prev_post}}
-                                <a class="gh-navigation-link" href="{{url}}">← <span class="gh-navigation-text">{{t "Previous"}}</span></a>
-                            {{/prev_post}}
-                        </div>
-                        <div class="gh-navigation-middle">
-                            <a href="#/share" class="gh-button-share">{{t "Share"}}</a>
-                        </div>
-                        <div class="gh-navigation-next">
-                            {{#next_post}}
-                                <a class="gh-navigation-link" href="{{url}}"><span class="gh-navigation-text">{{t "Next"}}</span> →</a>
-                            {{/next_post}}
-                        </div>
-                    </nav>
-                </footer>
-            </article>
-        {{/post}}
+    {{! Top bar }}
+    <div class="deck-bar">
+        <a class="deck-bar-home" href="{{@site.url}}" title="Back to site">
+            {{#if @site.logo}}
+                <img src="{{@site.logo}}" alt="{{@site.title}}" class="deck-bar-logo">
+            {{else}}
+                {{@site.title}}
+            {{/if}}
+        </a>
+        <h1 class="deck-bar-title">{{title}}</h1>
+        <div class="deck-bar-tags">
+            {{#foreach tags}}
+                <a class="gh-article-tag" href="{{url}}" style="--tag-color: {{accent_color}}">{{name}}</a>
+            {{/foreach}}
+        </div>
     </div>
-</main>
+
+    {{! Progress bar }}
+    <div class="deck-progress">
+        <div class="deck-progress-fill"></div>
+    </div>
+
+    {{! Slide stage }}
+    <div class="deck-stage" role="region" aria-label="Presentation slides"></div>
+
+    {{! Nav bar }}
+    <div class="deck-nav">
+        <button class="deck-btn deck-prev" aria-label="Previous slide" disabled>&#8592;</button>
+        <span class="deck-counter">
+            <span class="deck-counter-current">1</span>
+            <span class="deck-counter-sep">/</span>
+            <span class="deck-counter-total"></span>
+        </span>
+        <button class="deck-btn deck-next" aria-label="Next slide">&#8594;</button>
+    </div>
+
+</div>
+{{/post}}

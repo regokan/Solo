@@ -978,56 +978,240 @@ hr {
     font-size: 1.4rem;
 }
 
-/* Deck template
+/* Deck template — horizontal presentation reader
 /* ---------------------------------------------------------- */
 
-.deck-template .gh-content {
-    counter-reset: slide;
-}
-
-/* Each full-width image is a slide */
-.deck-template .gh-content .kg-image-card.kg-width-full {
-    counter-increment: slide;
-    margin-top: clamp(6rem, 5vw + 2rem, 10rem);
-    margin-bottom: 0;
-}
-
-/* Slide number above each image */
-.deck-template .gh-content .kg-image-card.kg-width-full::before {
-    content: counter(slide, decimal-leading-zero);
-    display: block;
-    padding: 0 clamp(1.6rem, 1.5vw + 0.8rem, 3.2rem);
-    margin-bottom: 1.2rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--color-secondary-text);
-    text-transform: uppercase;
-}
-
-/* Slide image: rounded corners + subtle shadow */
-.deck-template .gh-content .kg-image-card.kg-width-full img {
-    border-radius: 8px;
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.12);
-}
-
-/* Prose after a slide: give it breathing room and constrain width */
-.deck-template .gh-content .kg-image-card.kg-width-full + p,
-.deck-template .gh-content .kg-image-card.kg-width-full + ul,
-.deck-template .gh-content .kg-image-card.kg-width-full + ol,
-.deck-template .gh-content .kg-image-card.kg-width-full + h2,
-.deck-template .gh-content .kg-image-card.kg-width-full + h3,
-.deck-template .gh-content .kg-image-card.kg-width-full + blockquote {
-    margin-top: clamp(3.2rem, 2.5vw + 1.5rem, 5.6rem);
-}
-
-/* Hide the feature image area — deck posts lead with the first slide */
-.deck-template .gh-article-image {
+/* Kill normal chrome when in deck mode */
+.is-deck #gh-head,
+.is-deck .gh-foot,
+.is-deck .gh-main {
     display: none;
 }
 
+.is-deck body,
+.is-deck .gh-site {
+    overflow: hidden;
+    height: 100dvh;
+}
+
+/* Outer shell */
+.deck-ui {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
+    background: var(--background-color, #fff);
+}
+
+/* Hide the raw content source */
+.deck-content-source {
+    display: none;
+}
+
+/* Top bar */
+.deck-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    height: 52px;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.deck-bar-home {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.deck-bar-home:hover { opacity: 1; }
+
+.deck-bar-logo {
+    max-height: 28px;
+    width: auto;
+}
+
+.deck-bar-title {
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    color: var(--color-secondary-text);
+}
+
+.deck-bar-tags {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.deck-bar-tags .gh-article-tag {
+    margin: 0;
+}
+
+/* Progress bar */
+.deck-progress {
+    height: 2px;
+    background: var(--color-border);
+    flex-shrink: 0;
+}
+
+.deck-progress-fill {
+    height: 100%;
+    width: 0;
+    background: var(--accent-color, currentColor);
+    transition: width 0.4s ease;
+}
+
+/* Stage */
+.deck-stage {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+}
+
+/* Scrolling track */
+.deck-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* Each slide */
+.deck-slide {
+    min-width: 100vw;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 62fr 38fr;
+    overflow: hidden;
+}
+
+/* Image panel — dark so slides look native */
+.deck-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 40px;
+    background: #0E0F0C;
+    overflow: hidden;
+}
+
+.deck-visual img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+/* Notes panel */
+.deck-notes {
+    padding: 40px 40px 40px 36px;
+    overflow-y: auto;
+    border-left: 1px solid var(--color-border);
+    font-size: clamp(1.5rem, 0.3vw + 1.3rem, 1.8rem);
+    line-height: 1.7;
+    scrollbar-width: thin;
+}
+
+.deck-slide-num {
+    display: block;
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-secondary-text);
+    opacity: 0.6;
+}
+
+.deck-notes p { margin: 0 0 1.4em; }
+.deck-notes p:last-child { margin-bottom: 0; }
+.deck-notes ul,
+.deck-notes ol {
+    margin: 0 0 1.4em;
+    padding-left: 1.6em;
+}
+.deck-notes li { margin-bottom: 0.5em; }
+
+/* Bottom nav */
+.deck-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 0 24px;
+    height: 52px;
+    flex-shrink: 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.deck-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 1.8rem;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    cursor: pointer;
+    color: inherit;
+    transition: opacity 0.2s, border-color 0.2s;
+}
+
+.deck-btn:hover:not(:disabled) {
+    border-color: currentColor;
+}
+
+.deck-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.deck-counter {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-secondary-text);
+    letter-spacing: 0.02em;
+    min-width: 64px;
+    text-align: center;
+}
+
+.deck-counter-sep { margin: 0 4px; }
+
+/* Mobile: stack image on top, notes below */
 @media (max-width: 767px) {
-    .deck-template .gh-content .kg-image-card.kg-width-full img {
-        border-radius: 4px;
+    .deck-slide {
+        grid-template-columns: 1fr;
+        grid-template-rows: 52% 48%;
+    }
+
+    .deck-visual {
+        padding: 16px;
+    }
+
+    .deck-notes {
+        padding: 20px;
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .deck-bar-title {
+        display: none;
     }
 }
