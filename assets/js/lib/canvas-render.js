@@ -19,6 +19,21 @@
     var edges = data.edges || [];
     if (!nodes.length) return;
 
+    // ── Theme-aware color tokens (set in CSS, flip with dark/light mode) ─────
+    var cs = getComputedStyle(document.documentElement);
+    function tok(name, fallback) {
+        return cs.getPropertyValue(name).trim() || fallback;
+    }
+    var C = {
+        nodeFill:    tok('--canvas-node-fill',    'rgba(0,0,0,0.04)'),
+        nodeStroke:  tok('--canvas-node-stroke',  'rgba(0,0,0,0.14)'),
+        text:        tok('--canvas-text-color',   'rgba(0,0,0,0.82)'),
+        edge:        tok('--canvas-edge-color',   '#bbb'),
+        groupFill:   tok('--canvas-group-fill',   'rgba(0,0,0,0.025)'),
+        groupStroke: tok('--canvas-group-stroke', 'rgba(0,0,0,0.14)'),
+        groupLabel:  tok('--canvas-group-label',  'rgba(0,0,0,0.4)'),
+    };
+
     // ── Obsidian colour presets ───────────────────────────────────────────────
     var PRESET = { '1':'#e05c5c','2':'#e9973f','3':'#e0c46e','4':'#5bcd4e','5':'#53dfdd','6':'#a882f5' };
 
@@ -75,8 +90,8 @@
         g.appendChild(el('rect', {
             x: n.x + offX, y: n.y + offY, width: n.width, height: n.height,
             rx: 10, ry: 10,
-            fill:           color ? hexRgba(color, 0.08) : 'rgba(255,255,255,0.04)',
-            stroke:         color || 'rgba(255,255,255,0.18)',
+            fill:           color ? hexRgba(color, 0.08) : C.groupFill,
+            stroke:         color || C.groupStroke,
             'stroke-width': 1.5,
             'stroke-dasharray': '7 4'
         }));
@@ -85,7 +100,7 @@
             var lbl = el('text', {
                 x: n.x + offX + 12, y: n.y + offY - 10,
                 'font-size': 13, 'font-weight': 600,
-                fill: color || 'rgba(255,255,255,0.55)'
+                fill: color || C.groupLabel
             });
             lbl.textContent = n.label;
             g.appendChild(lbl);
@@ -131,7 +146,7 @@
         var toArrow   = e.toEnd   !== 'none';          // undefined → arrow
         var fromArrow = e.fromEnd === 'arrow';
 
-        var edgeColor = resolveColor(e.color) || '#666';
+        var edgeColor = resolveColor(e.color) || C.edge;
         var attrs = {
             d: 'M'+fp.x+' '+fp.y+' C'+cp1.x+' '+cp1.y+','+cp2.x+' '+cp2.y+','+tp.x+' '+tp.y,
             fill: 'none', stroke: edgeColor, 'stroke-width': 1.5
@@ -163,8 +178,8 @@
         g.appendChild(el('rect', {
             x: n.x + offX, y: n.y + offY, width: w, height: h,
             rx: 7, ry: 7,
-            fill:           color ? hexRgba(color, 0.12) : 'rgba(255,255,255,0.05)',
-            stroke:         color || 'rgba(255,255,255,0.15)',
+            fill:           color ? hexRgba(color, 0.12) : C.nodeFill,
+            stroke:         color || C.nodeStroke,
             'stroke-width': 1
         }));
 
@@ -178,7 +193,7 @@
         div.style.cssText = [
             'font-size:13px',
             'line-height:1.45',
-            'color:' + (color || 'rgba(255,255,255,0.8)'),
+            'color:' + (color || C.text),
             'overflow:hidden',
             'height:100%',
             'word-wrap:break-word',
