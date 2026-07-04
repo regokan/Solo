@@ -52,30 +52,27 @@
 </div>
 
 <article class="gh-article canvas-post-footer">
-    <section class="gh-content gh-canvas">
-        <aside class="gh-article-meta">
-            <div class="gh-article-meta-inner">
-                <div class="gh-author-image-list">
-                    {{#foreach authors}}
-                        <a class="gh-author-image" href="{{url}}">
-                            {{#if profile_image}}
-                                <img src="{{profile_image}}" alt="{{name}}">
-                            {{else}}
-                                <div class="gh-author-icon">{{> icons/avatar}}</div>
-                            {{/if}}
-                        </a>
-                    {{/foreach}}
-                </div>
-                <div class="gh-article-meta-wrapper">
-                    <div class="gh-author-name-list">{{authors}}</div>
-                    <time class="gh-article-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time>
-                </div>
-                {{#foreach tags}}
-                    <a class="gh-article-tag" href="{{url}}" style="--tag-color: {{accent_color}}">{{name}}</a>
-                {{/foreach}}
-            </div>
-        </aside>
-    </section>
+
+    <div class="post-footer-author">
+        {{#foreach authors}}
+            <a class="post-footer-avatar" href="{{url}}">
+                {{#if profile_image}}
+                    <img src="{{profile_image}}" alt="{{name}}">
+                {{else}}
+                    <div class="gh-author-icon">{{> icons/avatar}}</div>
+                {{/if}}
+            </a>
+        {{/foreach}}
+        <div class="post-footer-byline">
+            <div class="post-footer-author-name">{{authors}}</div>
+            <time class="gh-article-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time>
+        </div>
+        <div class="post-footer-tags">
+            {{#foreach tags}}
+                <a class="gh-article-tag" href="{{url}}" style="--tag-color: {{accent_color}}">{{name}}</a>
+            {{/foreach}}
+        </div>
+    </div>
 
     {{#if comments}}
         <div class="gh-comments gh-canvas">

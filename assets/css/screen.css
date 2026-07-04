@@ -984,9 +984,7 @@ hr {
 /* Kill normal chrome when in deck mode */
 .is-deck #gh-head,
 .is-deck .gh-foot,
-.is-deck .gh-main {
-    display: none;
-}
+.is-deck .gh-main { display: none !important; }
 
 /* body scrolls naturally — deck-ui fills first viewport, footer reveals on scroll */
 
@@ -1215,7 +1213,7 @@ hr {
 /* ── Canvas Template ───────────────────────────────────────────────────────── */
 .is-canvas #gh-head,
 .is-canvas .gh-foot,
-.is-canvas .gh-main { display: none; }
+.is-canvas .gh-main { display: none !important; }
 
 /* body scrolls naturally — canvas-ui fills first viewport, footer reveals on scroll */
 
@@ -1359,5 +1357,85 @@ hr {
 .deck-post-footer,
 .canvas-post-footer {
     background: var(--background-color, #fff);
-    border-top: 3px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
+}
+
+/* Author row — flat horizontal flex, not the sidebar gh-article-meta pattern */
+.post-footer-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(3.2rem, 3vw, 5.6rem) clamp(3.2rem, 5vw, 9.6rem);
+    flex-wrap: wrap;
+}
+
+.post-footer-avatar {
+    display: block;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--color-border);
+    text-decoration: none;
+}
+
+.post-footer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.post-footer-avatar .gh-author-icon {
+    width: 100%;
+    height: 100%;
+    background: var(--color-light-gray);
+}
+
+.post-footer-byline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.post-footer-author-name {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.post-footer-author-name a {
+    text-decoration: none;
+    color: var(--color-darker-gray);
+}
+
+.post-footer-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    align-items: center;
+}
+
+/* Tags in the author row should not have the large top margin they get in article content */
+.post-footer-tags .gh-article-tag {
+    margin-top: 0;
+}
+
+/* Collapse the massive clamp margin on the nav footer */
+.deck-post-footer .gh-article-footer,
+.canvas-post-footer .gh-article-footer {
+    margin-top: 0;
+    padding-top: clamp(2.4rem, 2vw, 4rem);
+    border-top: 1px solid var(--color-border);
+}
+
+/* No extra top margin on comments inside the post footer */
+.deck-post-footer .gh-comments,
+.canvas-post-footer .gh-comments {
+    margin-top: 0;
 }
