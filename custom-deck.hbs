@@ -9,21 +9,9 @@
     {{! Hidden source — JS parses this to build slides }}
     <div class="deck-content-source" aria-hidden="true">{{content}}</div>
 
-    {{! Top bar }}
+    {{! Top bar — title only; logo/nav/subscribe come from the normal site header above }}
     <div class="deck-bar">
-        <a class="deck-bar-home" href="{{@site.url}}" title="Back to site">
-            {{#if @site.logo}}
-                <img src="{{@site.logo}}" alt="{{@site.title}}" class="deck-bar-logo">
-            {{else}}
-                {{@site.title}}
-            {{/if}}
-        </a>
         <h1 class="deck-bar-title">{{title}}</h1>
-        <div class="deck-bar-tags">
-            {{#foreach tags}}
-                <a class="gh-article-tag" href="{{url}}" style="--tag-color: {{accent_color}}">{{name}}</a>
-            {{/foreach}}
-        </div>
     </div>
 
     {{! Progress bar }}

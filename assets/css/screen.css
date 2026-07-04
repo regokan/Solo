@@ -981,18 +981,24 @@ hr {
 /* Deck template — horizontal presentation reader
 /* ---------------------------------------------------------- */
 
-/* Kill normal chrome when in deck mode */
-.is-deck #gh-head,
+/* Kill only the ghost main content shell in deck mode — header stays */
 .is-deck .gh-foot,
 .is-deck .gh-main { display: none !important; }
 
-/* body scrolls naturally — deck-ui fills first viewport, footer reveals on scroll */
+/* Body flex-column: normal header sticks at top, deck-ui expands to fill the rest */
+.is-deck body,
+.is-canvas body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+}
 
-/* Outer shell */
+/* Outer shell — height is flex-determined, not fixed 100dvh */
 .deck-ui {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
+    flex: 1;
+    min-height: 0;
     overflow: hidden;
     background: var(--background-color, #fff);
 }
@@ -1002,38 +1008,17 @@ hr {
     display: none;
 }
 
-/* Top bar */
+/* Top bar — title only; site header provides logo/nav */
 .deck-bar {
     display: flex;
     align-items: center;
-    gap: 16px;
     padding: 0 24px;
     height: 52px;
     flex-shrink: 0;
     border-bottom: 1px solid var(--color-border);
 }
 
-.deck-bar-home {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-decoration: none;
-    color: inherit;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-}
-
-.deck-bar-home:hover { opacity: 1; }
-
-.deck-bar-logo {
-    max-height: 28px;
-    width: auto;
-}
-
 .deck-bar-title {
-    flex: 1;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -1042,16 +1027,6 @@ hr {
     text-overflow: ellipsis;
     margin: 0;
     color: var(--color-secondary-text);
-}
-
-.deck-bar-tags {
-    display: flex;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.deck-bar-tags .gh-article-tag {
-    margin: 0;
 }
 
 /* Progress bar */
@@ -1211,51 +1186,36 @@ hr {
 }
 
 /* ── Canvas Template ───────────────────────────────────────────────────────── */
-.is-canvas #gh-head,
 .is-canvas .gh-foot,
 .is-canvas .gh-main { display: none !important; }
 
-/* body scrolls naturally — canvas-ui fills first viewport, footer reveals on scroll */
+/* canvas-ui expands to fill the space below the normal site header */
+.is-canvas .canvas-ui {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+}
 
 .canvas-ui {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
     overflow: hidden;
     position: relative;
 }
 
 .canvas-content-source { display: none; }
 
-/* Top bar — matches .deck-bar styling */
+/* Top bar — title only; site header provides logo/nav */
 .canvas-bar {
     display: flex;
     align-items: center;
-    gap: 16px;
     padding: 0 24px;
     height: 52px;
     flex-shrink: 0;
     border-bottom: 1px solid var(--color-border);
 }
 
-.canvas-bar-home {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-decoration: none;
-    color: inherit;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-}
-
-.canvas-bar-home:hover { opacity: 1; }
-
-.canvas-bar-logo { max-height: 28px; width: auto; }
-
 .canvas-bar-title {
-    flex: 1;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -1264,33 +1224,6 @@ hr {
     text-overflow: ellipsis;
     margin: 0;
     color: var(--color-secondary-text);
-}
-
-.canvas-bar-tags {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-}
-
-.canvas-bar-tags .gh-article-tag {
-    display: inline-flex;
-    align-items: center;
-    margin: 0;
-    padding: 3px 10px;
-    border-radius: 100px;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: rgba(0,0,0,0.05);
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    text-decoration: none;
-    color: var(--color-secondary-text);
-    transition: background 0.15s;
-}
-
-.canvas-bar-tags .gh-article-tag:hover {
-    background: rgba(0,0,0,0.1);
 }
 
 /* Stage */
