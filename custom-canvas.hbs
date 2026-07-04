@@ -1,0 +1,53 @@
+{{!< default}}
+
+{{#contentFor "body_class"}} is-canvas{{/contentFor}}
+
+{{#post}}
+<div class="canvas-ui">
+
+    {{! Hidden source — JS finds .canvas-data inside here }}
+    <div class="canvas-content-source" aria-hidden="true">{{content}}</div>
+
+    {{! Top bar }}
+    <div class="canvas-bar">
+        <a class="canvas-bar-home" href="{{@site.url}}" title="Back to site">
+            {{#if @site.logo}}
+                <img src="{{@site.logo}}" alt="{{@site.title}}" class="canvas-bar-logo">
+            {{else}}
+                {{@site.title}}
+            {{/if}}
+        </a>
+        <h1 class="canvas-bar-title">{{title}}</h1>
+        <div class="canvas-bar-tags">
+            {{#foreach tags}}
+                <a class="gh-article-tag" href="{{url}}" style="--tag-color: {{accent_color}}">{{name}}</a>
+            {{/foreach}}
+        </div>
+    </div>
+
+    {{! Graph stage }}
+    <div class="canvas-stage" role="region" aria-label="Graph canvas">
+        <svg class="canvas-svg" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="cv-arrow" markerWidth="10" markerHeight="7"
+                        refX="9" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#777"/>
+                </marker>
+                <marker id="cv-arrow-rev" markerWidth="10" markerHeight="7"
+                        refX="1" refY="3.5" orient="auto-start-reverse" markerUnits="strokeWidth">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#777"/>
+                </marker>
+            </defs>
+            <g class="canvas-root"></g>
+        </svg>
+    </div>
+
+    {{! Zoom controls }}
+    <div class="canvas-controls">
+        <button class="canvas-ctrl-btn canvas-zoom-in"  aria-label="Zoom in">+</button>
+        <button class="canvas-ctrl-btn canvas-zoom-out" aria-label="Zoom out">−</button>
+        <button class="canvas-ctrl-btn canvas-zoom-fit" aria-label="Fit to screen" title="Fit">⊡</button>
+    </div>
+
+</div>
+{{/post}}

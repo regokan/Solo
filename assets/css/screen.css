@@ -1215,3 +1215,124 @@ hr {
         display: none;
     }
 }
+
+/* ── Canvas Template ───────────────────────────────────────────────────────── */
+.is-canvas #gh-head,
+.is-canvas .gh-foot,
+.is-canvas .gh-main { display: none; }
+
+.is-canvas body,
+.is-canvas .gh-site { overflow: hidden; height: 100dvh; }
+
+.canvas-ui {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
+    background: #0E0F0C;
+    color: rgba(255,255,255,0.82);
+    position: relative;
+}
+
+.canvas-content-source { display: none; }
+
+/* Top bar */
+.canvas-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 20px;
+    height: 48px;
+    min-height: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+    background: rgba(0,0,0,0.25);
+    flex-shrink: 0;
+}
+
+.canvas-bar-home {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.canvas-bar-logo { height: 24px; width: auto; }
+
+.canvas-bar-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.canvas-bar-tags {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Stage */
+.canvas-stage {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+}
+
+.canvas-stage:active { cursor: grabbing; }
+
+.canvas-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Node text (via foreignObject) */
+.canvas-svg text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Zoom controls */
+.canvas-controls {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 10;
+}
+
+.canvas-ctrl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 20px;
+    line-height: 1;
+    background: rgba(18,18,18,0.88);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 7px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: background 0.15s, color 0.15s;
+}
+
+.canvas-ctrl-btn:hover { background: rgba(55,55,55,0.9); color: #fff; }
+
+@media (max-width: 767px) {
+    .canvas-bar-tags { display: none; }
+}
