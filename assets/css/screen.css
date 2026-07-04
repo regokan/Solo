@@ -1426,20 +1426,30 @@ hr {
     margin-top: 0;
 }
 
-/* Collapse the massive clamp margin on the nav footer, and pin it to the page bottom */
+/* Nav footer: constrain width to match normal post content, not full viewport */
 .deck-post-footer .gh-article-footer,
 .canvas-post-footer .gh-article-footer {
+    max-width: var(--container-width, 1440px);
     margin-top: 0;
     margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
     padding-top: clamp(2.4rem, 2vw, 4rem);
     padding-bottom: clamp(4rem, 4vw, 6.4rem);
+    padding-left: clamp(3.2rem, 5vw, 9.6rem);
+    padding-right: clamp(3.2rem, 5vw, 9.6rem);
     border-top: 1px solid var(--color-border);
 }
 
-/* No extra top margin on comments inside the post footer */
+/* Comments: constrain and center the same way */
 .deck-post-footer .gh-comments,
 .canvas-post-footer .gh-comments {
+    max-width: var(--container-width, 1440px);
     margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(3.2rem, 5vw, 9.6rem);
+    padding-right: clamp(3.2rem, 5vw, 9.6rem);
 }
 
 /* Kill any bottom overflow from the article wrapper */
