@@ -1275,8 +1275,29 @@ hr {
 
 .canvas-bar-tags {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 6px;
     flex-shrink: 0;
+}
+
+.canvas-bar-tags .gh-article-tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: rgba(0,0,0,0.05);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    color: var(--color-secondary-text);
+    transition: background 0.15s;
+}
+
+.canvas-bar-tags .gh-article-tag:hover {
+    background: rgba(0,0,0,0.1);
 }
 
 /* Stage */
