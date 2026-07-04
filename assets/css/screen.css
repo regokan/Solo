@@ -1426,11 +1426,13 @@ hr {
     margin-top: 0;
 }
 
-/* Collapse the massive clamp margin on the nav footer */
+/* Collapse the massive clamp margin on the nav footer, and pin it to the page bottom */
 .deck-post-footer .gh-article-footer,
 .canvas-post-footer .gh-article-footer {
     margin-top: 0;
+    margin-bottom: 0;
     padding-top: clamp(2.4rem, 2vw, 4rem);
+    padding-bottom: clamp(4rem, 4vw, 6.4rem);
     border-top: 1px solid var(--color-border);
 }
 
@@ -1438,4 +1440,11 @@ hr {
 .deck-post-footer .gh-comments,
 .canvas-post-footer .gh-comments {
     margin-top: 0;
+}
+
+/* Kill any bottom overflow from the article wrapper */
+.deck-post-footer,
+.canvas-post-footer {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
 }
