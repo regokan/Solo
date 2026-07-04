@@ -1,6 +1,14 @@
 (function () {
     if (!document.body.classList.contains('is-deck')) return;
 
+    // Measure the site header height so CSS can size the stage to fill the rest
+    function syncHeaderHeight() {
+        var h = document.querySelector('#gh-head');
+        document.documentElement.style.setProperty('--header-height', (h ? h.offsetHeight : 0) + 'px');
+    }
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+
     var source = document.querySelector('.deck-content-source');
     var stage  = document.querySelector('.deck-stage');
     if (!source || !stage) return;

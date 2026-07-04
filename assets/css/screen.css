@@ -981,24 +981,15 @@ hr {
 /* Deck template — horizontal presentation reader
 /* ---------------------------------------------------------- */
 
-/* Kill only the ghost main content shell in deck mode — header stays */
+/* Kill only the ghost main content shell in deck mode — site header stays */
 .is-deck .gh-foot,
 .is-deck .gh-main { display: none !important; }
 
-/* Body flex-column: normal header sticks at top, deck-ui expands to fill the rest */
-.is-deck body,
-.is-canvas body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100dvh;
-}
-
-/* Outer shell — height is flex-determined, not fixed 100dvh */
+/* --header-height is set by JS on load/resize to the measured #gh-head height */
 .deck-ui {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    min-height: 0;
+    height: calc(100dvh - var(--header-height, 0px));
     overflow: hidden;
     background: var(--background-color, #fff);
 }
@@ -1006,27 +997,6 @@ hr {
 /* Hide the raw content source */
 .deck-content-source {
     display: none;
-}
-
-/* Top bar — title only; site header provides logo/nav */
-.deck-bar {
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    height: 52px;
-    flex-shrink: 0;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.deck-bar-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    color: var(--color-secondary-text);
 }
 
 /* Progress bar */
@@ -1180,51 +1150,22 @@ hr {
         border-top: 1px solid var(--color-border);
     }
 
-    .deck-bar-title {
-        display: none;
-    }
 }
 
 /* ── Canvas Template ───────────────────────────────────────────────────────── */
 .is-canvas .gh-foot,
 .is-canvas .gh-main { display: none !important; }
 
-/* canvas-ui expands to fill the space below the normal site header */
-.is-canvas .canvas-ui {
-    flex: 1;
-    min-height: 0;
-    height: auto;
-}
-
+/* --header-height is set by JS on load/resize to the measured #gh-head height */
 .canvas-ui {
     display: flex;
     flex-direction: column;
+    height: calc(100dvh - var(--header-height, 0px));
     overflow: hidden;
     position: relative;
 }
 
 .canvas-content-source { display: none; }
-
-/* Top bar — title only; site header provides logo/nav */
-.canvas-bar {
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    height: 52px;
-    flex-shrink: 0;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.canvas-bar-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    color: var(--color-secondary-text);
-}
 
 /* Stage */
 .canvas-stage {
@@ -1281,10 +1222,6 @@ hr {
 }
 
 .canvas-ctrl-btn:hover { background: rgba(55,55,55,0.9); color: #fff; }
-
-@media (max-width: 767px) {
-    .canvas-bar-tags { display: none; }
-}
 
 /* ── Deck / canvas post footer (author, comments, nav) ─────────────────────── */
 .deck-post-footer,
