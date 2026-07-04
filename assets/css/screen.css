@@ -988,11 +988,7 @@ hr {
     display: none;
 }
 
-.is-deck body,
-.is-deck .gh-site {
-    overflow: hidden;
-    height: 100dvh;
-}
+/* body scrolls naturally — deck-ui fills first viewport, footer reveals on scroll */
 
 /* Outer shell */
 .deck-ui {
@@ -1221,8 +1217,7 @@ hr {
 .is-canvas .gh-foot,
 .is-canvas .gh-main { display: none; }
 
-.is-canvas body,
-.is-canvas .gh-site { overflow: hidden; height: 100dvh; }
+/* body scrolls naturally — canvas-ui fills first viewport, footer reveals on scroll */
 
 .canvas-ui {
     display: flex;
@@ -1358,4 +1353,11 @@ hr {
 
 @media (max-width: 767px) {
     .canvas-bar-tags { display: none; }
+}
+
+/* ── Deck / canvas post footer (author, comments, nav) ─────────────────────── */
+.deck-post-footer,
+.canvas-post-footer {
+    background: var(--background-color, #fff);
+    border-top: 3px solid var(--color-border);
 }

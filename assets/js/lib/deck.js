@@ -98,9 +98,9 @@
         if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    { e.preventDefault(); goTo(idx - 1); }
     });
 
-    // wheel — let notes panel scroll; advance slide when at boundary
+    // wheel — scoped to stage so footer area scrolls the page normally
     var wheelLock = false;
-    document.addEventListener('wheel', function (e) {
+    stage.addEventListener('wheel', function (e) {
         var panel = e.target.closest('.deck-notes');
         if (panel) {
             var atBottom = panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 4;
@@ -108,13 +108,14 @@
             if (e.deltaY > 0 && !atBottom) return;
             if (e.deltaY < 0 && !atTop)    return;
         }
+        e.preventDefault();
         if (wheelLock) return;
         var delta = e.deltaY || e.deltaX;
         if (Math.abs(delta) < 10) return;
         wheelLock = true;
         goTo(idx + (delta > 0 ? 1 : -1));
         setTimeout(function () { wheelLock = false; }, 600);
-    }, { passive: true });
+    }, { passive: false });
 
     // touch swipe
     var touchStartX = null;
