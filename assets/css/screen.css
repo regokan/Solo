@@ -1172,6 +1172,12 @@ hr {
 .is-canvas .gh-foot,
 .is-canvas .gh-main { display: none !important; }
 
+/* Embedded (iframe) mode: hide site header and post footer, fill full viewport */
+.is-canvas-embedded #gh-head,
+.is-canvas-embedded .canvas-post-footer { display: none !important; }
+
+.is-canvas-embedded .canvas-ui { height: 100dvh; }
+
 /* --header-height is set by JS on load/resize to the measured #gh-head height */
 .canvas-ui {
     display: flex;

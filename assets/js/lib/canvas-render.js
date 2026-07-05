@@ -1,6 +1,11 @@
 (function () {
     if (!document.body.classList.contains('is-canvas')) return;
 
+    // When embedded as an iframe, hide chrome and fill the full viewport
+    if (window.self !== window.top) {
+        document.body.classList.add('is-canvas-embedded');
+    }
+
     // Measure the site header height so CSS can size the stage to fill the rest
     function syncHeaderHeight() {
         var h = document.querySelector('#gh-head');
